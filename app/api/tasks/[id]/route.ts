@@ -89,3 +89,50 @@ export async function PATCH(
         )
     }
 }
+
+
+export async function DELETE(
+    _request: NextRequest,
+    { params }: { params: Promise<{id: string}>}
+) {
+    try {
+        const { id } = await params
+
+        if (!isValidObjectId(id)) {
+            return NextResponse.json(
+                {
+                    success: false, 
+                    error: "Invalid task id format"
+                }, {status: 400}
+            )
+        }
+
+        await dbConnect()
+
+        const task = await Task.findByIdAndDelete(id)
+
+        if (!task) {
+            return NextResponse.json(
+                {
+                    success:    false,
+                    error: "Task not found"
+                }, {status: 404}
+            )
+        }
+
+        return NextResponse.json(
+            {
+                success: true,
+                data: {message: "Task deleted successfully", id}
+            }
+        )
+    } catch (error) {
+        console.error("[DELETE /api/tasks/:id]", error)
+        return NextResponse.json(
+            {
+                success: false,
+                error: "Filed to delete task"
+            }, {status: 500}
+        )
+    }
+}
