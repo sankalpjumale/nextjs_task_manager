@@ -53,6 +53,11 @@ const TaskSchema = new Schema<TaskDocument> (
     }
 )
 
-const Task: Model<TaskDocument> = mongoose.models.Task || mongoose.model<TaskDocument>("Task", TaskSchema)
+TaskSchema.index({status: 1})
+TaskSchema.index({priority: 1})
+TaskSchema.index({createdAt: -1})
+TaskSchema.index({status: 1, createdAt: -1})
+
+const Task: Model<TaskDocument> = (mongoose.models.Task as Model<TaskDocument>) || mongoose.model<TaskDocument>("Task", TaskSchema)
 
 export default Task
