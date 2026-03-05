@@ -2,7 +2,7 @@ export type Priority = "low" | "medium" | "high"
 export type Status = "todo" | "in-progress" | "done"
 
 export interface ITask {
-    _id: string;
+    id: string;
     title: string;
     description: string;
     priority: Priority;

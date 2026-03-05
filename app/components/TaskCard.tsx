@@ -147,7 +147,7 @@ export default function TaskCard({task, onEdit, onDelete, onCycleStatus}: Props)
             </span>
         
 
-            // Action Button
+            {/* Action Button */}
             <div className="flex gap-1 items-center opacity-0 group-hover:opacity-100 transition-opacity duration-150">
 
                 <button

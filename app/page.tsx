@@ -34,6 +34,7 @@ export default function Home() {
       setLoading(true)
       setError("")
       const data = await fetchTasks()
+      console.log("tasks from API: ", data)
       setTasks(data)
     } catch (err) {
       setError(
@@ -106,9 +107,9 @@ export default function Home() {
     setSaving(true)
     try {
       if (editingTask) {
-        const updated = await updateTask(editingTask._id, data)
+        const updated = await updateTask(editingTask.id, data)
         setTasks((prev) => 
-          prev.map((t) => t._id === updated._id ? updated: t)
+          prev.map((t) => t.id === updated.id ? updated: t)
         )
       } else{
         const created = await createTask(data)
@@ -127,20 +128,20 @@ export default function Home() {
     const nextStatus = STATUS_CYCLE[(currentIndex + 1 ) % STATUS_CYCLE.length]
 
     setTasks((prev) => 
-      prev.map((t) => t._id === task._id ? {...t, status: nextStatus} : t)
+      prev.map((t) => t.id === task.id ? {...t, status: nextStatus} : t)
     )
 
     try {
-      await updateTask(task._id, {status: nextStatus})
+      await updateTask(task.id, {status: nextStatus})
     } catch (error) {
       setTasks((prev) => 
-        prev.map((t) => t._id === task._id? {...t, status: task.status} : t))
+        prev.map((t) => t.id === task.id? {...t, status: task.status} : t))
     }
   }
 
   async function handleDelete(taskId: string) {
-    const taskBackup = tasks.find((t) => t._id === taskId)
-    setTasks((prev) => prev.filter((t) => t._id !== taskId))
+    const taskBackup = tasks.find((t) => t.id === taskId)
+    setTasks((prev) => prev.filter((t) => t.id !== taskId))
 
     try {
       await deleteTask(taskId)
@@ -150,6 +151,7 @@ export default function Home() {
       }
     }
   }
+
 
   return (
     <div className="min-h-screen bg-[#0a0a0f] text-gray-200 font-mono flex flex-col">
@@ -231,17 +233,17 @@ export default function Home() {
         )}
 
         {/* Task Cards */}
-        {!loading && !error && visibleTasks.map((task) => (
-          <div>
+        {!loading && !error && visibleTasks.map((task) => {
+          return (
             <TaskCard
-              key={task._id}
+              key={task.id}
               task={task}
               onEdit={() => openEditModel(task)}
-              onDelete={() => handleDelete(task._id)}
+              onDelete={() => handleDelete(task.id)}
               onCycleStatus={() => handleCycleStatus(task)}
             />
-          </div>
-        ))}
+          )
+        })}
       </main>
 
       {/* Model */}
