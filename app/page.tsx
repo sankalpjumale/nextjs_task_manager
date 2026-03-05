@@ -232,13 +232,15 @@ export default function Home() {
 
         {/* Task Cards */}
         {!loading && !error && visibleTasks.map((task) => (
-          <TaskCard
-            key={task._id}
-            task={task}
-            onEdit={() => openEditModel(task)}
-            onDelete={() => handleDelete(task._id)}
-            onCycleStatus={() => handleCycleStatus(task)}
-          />
+          <div>
+            <TaskCard
+              key={task._id}
+              task={task}
+              onEdit={() => openEditModel(task)}
+              onDelete={() => handleDelete(task._id)}
+              onCycleStatus={() => handleCycleStatus(task)}
+            />
+          </div>
         ))}
       </main>
 

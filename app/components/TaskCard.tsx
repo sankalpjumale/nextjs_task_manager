@@ -59,75 +59,75 @@ export default function TaskCard({task, onEdit, onDelete, onCycleStatus}: Props)
     }
 
     return (
-        <>
-            <div
-                className={`
-                    group flex items-start gap-4 px-5 py-4
-                    bg-[#111827] border border-[#1f2937] rounded-md
-                    hover:border-[#374151] hover:bg-[#131b2a]
-                    transition-all duration-200
-                    ${removing
-                        ? "opacity-0 translate-x-3 scale-[0.99]"
-                        : "opacity-100 translate-x-0 scale-100"
-                    }    
-                `}
-            >
-                {/* Status dot */}
-                <button
-                    onClick={onCycleStatus}
-                    title={`Mark as '${nextStatus}`}
-                    className="
-                        mt-[3px] flex-shrink-0
-                        w-3.5 h-3.5 rounded-full
-                        transition-all duration-150
-                        hover:ring-2 ring-offset-1 ring-offset-[#111827]
-                        focus; outline-none focus:scale-125
-                    "
-                    style={{
-                        backgroundColor: statusConfig.dotColor,
-                        boxShadow: `0 0 0 1px ${statusConfig.dotColor}30`,
-                        ["--tw-ring-color" as string]: statusConfig.dotColor,
-                    }}
-                />
+        
+        <div
+            className={`
+                group flex items-start gap-4 px-5 py-4
+                bg-[#111827] border border-[#1f2937] rounded-md
+                hover:border-[#374151] hover:bg-[#131b2a]
+                transition-all duration-200
+                ${removing
+                    ? "opacity-0 translate-x-3 scale-[0.99]"
+                    : "opacity-100 translate-x-0 scale-100"
+                }    
+            `}
+        >
+            {/* Status dot */}
+            <button
+                onClick={onCycleStatus}
+                title={`Mark as '${nextStatus}`}
+                className="
+                    mt-[3px] flex-shrink-0
+                    w-3.5 h-3.5 rounded-full
+                    transition-all duration-150
+                    hover:ring-2 ring-offset-1 ring-offset-[#111827]
+                    focus; outline-none focus:scale-125
+                "
+                style={{
+                    backgroundColor: statusConfig.dotColor,
+                    boxShadow: `0 0 0 1px ${statusConfig.dotColor}30`,
+                    ["--tw-ring-color" as string]: statusConfig.dotColor,
+                }}
+            />
 
-                {/* Main COntent */}
-                <div className="flex-1 min-w-0">
+            {/* Main COntent */}
+            <div className="flex-1 min-w-0">
 
-                    {/* Title row with badges */}
-                    <div className="flex items-start gap-3 flex-wrap mb-1">
-                        <span
-                            className={`
-                                flex-1 text-[13px] font-semibold tracking-wide leading-snug
-                                ${task.status === "done" 
-                                    ? "line-through text-gray-500" 
-                                    : "text-gray-100"
-                                }    
-                            `}    
-                        >{task.title}
-                        </span>
-                    </div>
+                {/* Title row with badges */}
+                <div className="flex items-start gap-3 flex-wrap mb-1">
+                    <span
+                        className={`
+                            flex-1 text-[13px] font-semibold tracking-wide leading-snug
+                            ${task.status === "done" 
+                                ? "line-through text-gray-500" 
+                                : "text-gray-100"
+                            }    
+                        `}    
+                    >{task.title}
+                    </span>
+                </div>
 
-                    {/* Priority */}
-                    <div className="flex gap-1.5 flex-shrink-0 mt-0.5">
-                        <span 
-                            className={`
-                                text-[10px] px-2 py-0.5 rounde border
-                                font-semibold tracking-[0.08em] uppercase
-                                ${priorityConfig.badgeCss}
-                            `}
-                        >
-                            {task.priority}
-                        </span>
-
-                        <span className={`
+                {/* Priority */}
+                <div className="flex gap-1.5 flex-shrink-0 mt-0.5">
+                    <span 
+                        className={`
                             text-[10px] px-2 py-0.5 rounde border
                             font-semibold tracking-[0.08em] uppercase
                             ${priorityConfig.badgeCss}
-                        `}>
-                            {statusConfig.label}
-                        </span>
-                    </div>
+                        `}
+                    >
+                        {task.priority}
+                    </span>
+
+                    <span className={`
+                        text-[10px] px-2 py-0.5 rounde border
+                        font-semibold tracking-[0.08em] uppercase
+                        ${priorityConfig.badgeCss}
+                    `}>
+                        {statusConfig.label}
+                    </span>
                 </div>
+            
 
                 {/* Description */}
                 {task.description && (
@@ -135,16 +135,17 @@ export default function TaskCard({task, onEdit, onDelete, onCycleStatus}: Props)
                         {task.description}
                     </p>
                 )}
-
-                {/* Created Date */}
-                <span className="text-[10px] text-gray-600 tracking-wide">
-                    {new Date(task.createdAt).toLocaleDateString("en-US", {
-                        month: "short",
-                        day: "numeric",
-                        year: "numeric"
-                    })}
-                </span>
             </div>
+
+            {/* Created Date */}
+            <span className="text-[10px] text-gray-600 tracking-wide">
+                {new Date(task.createdAt).toLocaleDateString("en-US", {
+                    month: "short",
+                    day: "numeric",
+                    year: "numeric"
+                })}
+            </span>
+        
 
             // Action Button
             <div className="flex gap-1 items-center opacity-0 group-hover:opacity-100 transition-opacity duration-150">
@@ -174,6 +175,6 @@ export default function TaskCard({task, onEdit, onDelete, onCycleStatus}: Props)
                 🗑</button>
 
             </div>
-        </>
+        </div>
     )
 }
